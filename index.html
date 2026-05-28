@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario Técnico & Constructor de Apps</title>
+    <!-- Tailwind CSS para un diseño limpio y rápido -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        /* Personalización del color gris de fondo para mantener nuestra línea estética */
+        body {
+            background-color: #121214;
+            color: #e2e8f0;
+        }
+        .bg-custom-dark { background-color: #1a1a1e; }
+        .bg-custom-card { background-color: #26262b; }
+        .border-custom { border-color: #3f3f46; }
+        .text-accent { color: #38bdf8; }
+        .bg-accent { background-color: #0284c7; }
+        .bg-accent:hover { background-color: #0369a1; }
+    </style>
+</head>
+<body class="font-sans min-h-screen flex flex-col">
+
+    <!-- CABECERA -->
+    <header class="bg-custom-dark border-b border-custom p-4 shadow-md">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <span>💻</span> DevDiccio & Prompt Builder
+                </h1>
+                <p class="text-sm text-gray-400">Aprende el lenguaje de programación para crear apps conmigo</p>
+            </div>
+            <!-- PESTAÑAS DE NAVEGACIÓN -->
+            <nav class="flex gap-2 bg-black/30 p-1 rounded-lg border border-custom">
+                <button onclick="switchTab('diccionario')" id="btn-diccionario" class="px-4 py-2 rounded-md text-sm font-medium transition bg-accent text-white">
+                    📖 Diccionario
+                </button>
+                <button onclick="switchTab('anatomia')" id="btn-anatomia" class="px-4 py-2 rounded-md text-sm font-medium transition text-gray-400 hover:text-white">
+                    🦴 Anatomía App
+                </button>
+                <button onclick="switchTab('constructor')" id="btn-constructor" class="px-4 py-2 rounded-md text-sm font-medium transition text-gray-400 hover:text-white">
+                    🛠️ Constructor
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 sm:p-6">
+
+        <!-- SECCIÓN 1: DICCIONARIO INTERACTIVO -->
+        <section id="tab-diccionario" class="space-y-6">
+            <div class="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+                <div class="w-full sm:w-72">
+                    <input type="text" id="search-bar" oninput="filterTerms()" placeholder="Buscar término (ej: PWA, LocalStorage...)" class="w-full px-4 py-2 rounded-lg bg-custom-dark border border-custom text-white focus:outline-none focus:border-sky-500 text-sm">
+                </div>
+                <div class="flex flex-wrap gap-2" id="filter-tags">
+                    <button onclick="filterCategory('todos')" class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-400 border border-sky-500/30">Todos</button>
+                    <button onclick="filterCategory('arquitectura')" class="px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-gray-400 border border-custom hover:text-white">Arquitectura</button>
+                    <button onclick="filterCategory('frontend')" class="px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-gray-400 border border-custom hover:text-white">Frontend</button>
+                    <button onclick="filterCategory('datos')" class="px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-gray-400 border border-custom hover:text-white">Datos / Firebase</button>
+                </div>
+            </div>
+
+            <!-- Rejilla de Términos -->
+            <div id="terms-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Se inyecta dinámicamente con JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: ANATOMÍA DE UNA APP (ESQUELETO VISUAL) -->
+        <section id="tab-anatomia" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7 bg-custom-dark border border-custom rounded-xl p-4 overflow-x-auto font-mono text-sm shadow-inner">
+                <div class="text-xs text-gray-500 mb-2 border-b border-custom pb-2">// Pasa el cursor o pulsa en las zonas coloreadas</div>
+                <pre class="text-gray-300 leading-relaxed">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  <span class="bg-amber-500/10 text-amber-400 cursor-pointer p-1 rounded hover:bg-amber-500/20 block my-1" onclick="showAnatomy('cdn')">&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt; <span class="text-xs text-gray-500">// Estilos CSS (Tailwind CDN)</span></span>&lt;/head&gt;
+&lt;body class="bg-zinc-900 text-white"&gt;
+
+  <span class="bg-emerald-500/10 text-emerald-400 cursor-pointer p-1 rounded hover:bg-emerald-500/20 block my-1" onclick="showAnatomy('html')">&lt;div id="app"&gt;
+    &lt;h1&gt;Mi Turno de Bus&lt;/h1&gt;
+    &lt;button id="btn-guardar"&gt;Guardar&lt;/button&gt;
+  &lt;/div&gt; <span class="text-xs text-gray-500">// Estructura Visual (HTML)</span></span>
+  &lt;script&gt;
+    <span class="bg-indigo-500/10 text-indigo-400 cursor-pointer p-1 rounded hover:bg-indigo-500/20 block my-1" onclick="showAnatomy('variables')">let numeroBus = 142; 
+let horaInicio = "06:00"; <span class="text-xs text-gray-500">// Variables (Datos en memoria)</span></span>
+    <span class="bg-pink-500/10 text-pink-400 cursor-pointer p-1 rounded hover:bg-pink-500/20 block my-1" onclick="showAnatomy('listener')">document.getElementById('btn-guardar').addEventListener('click', () => {
+       guardarDatos();
+    }); <span class="text-xs text-gray-500">// Event Listener (Detectar clics)</span></span>
+    <span class="bg-sky-500/10 text-sky-400 cursor-pointer p-1 rounded hover:bg-sky-500/20 block my-1" onclick="showAnatomy('funcion')">function guardarDatos() {
+       console.log("Guardando el bus " + numeroBus);
+    } <span class="text-xs text-gray-500">// Función (Acción organizada)</span></span>  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+            </div>
+            <div class="lg:col-span-5 flex flex-col justify-between">
+                <div id="anatomy-info" class="bg-custom-card border border-custom rounded-xl p-6 shadow-md h-full">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                        <span class="text-accent">💡</span> Anatomía del Código Unificado
+                    </h3>
+                    <p class="text-gray-400 text-sm leading-relaxed" id="anatomy-text">
+                        Haz clic en cualquiera de las secciones resaltadas en color dentro del código de la izquierda para ver su función real, para qué se utiliza en tus proyectos y cómo interactúa con el resto de la aplicación.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: CONSTRUCTOR DE PETICIONES (PROMPT BUILDER) -->
+        <section id="tab-constructor" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Formulario de Configuración -->
+            <div class="bg-custom-card border border-custom rounded-xl p-6 space-y-6 shadow-md">
+                <h3 class="text-lg font-bold text-white border-b border-custom pb-2">🛠️ Define lo que necesitas</h3>
+                
+                <!-- Tipo de App -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-300">1. Tipo de Estructura:</label>
+                    <select id="p-tipo" onchange="buildPrompt()" class="w-full p-2.5 rounded-lg bg-custom-dark border border-custom text-white text-sm focus:outline-none focus:border-sky-500">
+                        <option value="una Single Page Application (SPA) unificada en un solo archivo index.html">Single Page Application (SPA en 1 archivo)</option>
+                        <option value="una Progressive Web App (PWA) instalable que funcione offline">Progressive Web App (PWA para móvil)</option>
+                    </select>
+                </div>
+
+                <!-- Almacenamiento -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-300">2. ¿Dónde guardamos los datos?:</label>
+                    <select id="p-datos" onchange="buildPrompt()" class="w-full p-2.5 rounded-lg bg-custom-dark border border-custom text-white text-sm focus:outline-none focus:border-sky-500">
+                        <option value="guardando los datos de forma persistente en LocalStorage">LocalStorage (Local en el navegador)</option>
+                        <option value="conectada a Firebase Firestore en tiempo real">Firebase Firestore (En la nube con base de datos)</option>
+                        <option value="sin base de datos, solo lógica en memoria volatíl">Sin almacenamiento (Solo simulación en memoria)</option>
+                    </select>
+                </div>
+
+                <!-- Elementos de Interfaz -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-300">3. Componentes visuales esenciales:</label>
+                    <div class="grid grid-cols-2 gap-2 text-sm text-gray-300">
+                        <label class="flex items-center gap-2 cursor-pointer bg-custom-dark p-2 rounded border border-custom hover:border-zinc-500">
+                            <input type="checkbox" value="un formulario limpio con validación" checked onchange="buildPrompt()" class="accent-sky-500"> Formulario
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer bg-custom-dark p-2 rounded border border-custom hover:border-zinc-500">
+                            <input type="checkbox" value="una tabla organizada y escaneable" checked onchange="buildPrompt()" class="accent-sky-500"> Tabla de Datos
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer bg-custom-dark p-2 rounded border border-custom hover:border-zinc-500">
+                            <input type="checkbox" value="un buscador en tiempo real mediante JavaScript" onchange="buildPrompt()" class="accent-sky-500"> Buscador/Filtro
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer bg-custom-dark p-2 rounded border border-custom hover:border-zinc-500">
+                            <input type="checkbox" value="un diseño responsive adaptado a móviles con Tailwind CSS" checked onchange="buildPrompt()" class="accent-sky-500"> Diseño Móvil
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Objetivo Extra -->
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-300">4. ¿Qué va a hacer la app? (Escríbelo en tus palabras):</label>
+                    <textarea id="p-objetivo" oninput="buildPrompt()" placeholder="Ej: Registrar mis horas de turno y calcular las dietas automáticamente..." class="w-full p-2.5 h-24 rounded-lg bg-custom-dark border border-custom text-white text-sm focus:outline-none focus:border-sky-500"></textarea>
+                </div>
+            </div>
+
+            <!-- Resultado del Prompt Perfecto -->
+            <div class="flex flex-col justify-between bg-custom-dark border border-custom rounded-xl p-6 shadow-md">
+                <div class="space-y-4">
+                    <h3 class="text-lg font-bold text-sky-400 flex items-center gap-2">
+                        <span>📋</span> Tu Petición Perfecta para Gemini
+                    </h3>
+                    <p class="text-xs text-gray-400">Este texto contiene la jerga exacta para que yo entienda tu app a la primera sin cometer errores de estructura:</p>
+                    
+                    <div id="prompt-result" class="p-4 bg-black/40 rounded-lg font-mono text-sm text-gray-300 border border-custom select-all whitespace-pre-wrap leading-relaxed min-h-[160px]">
+                        <!-- Se genera dinámicamente -->
+                    </div>
+                </div>
+                
+                <button onclick="copyPrompt()" class="mt-4 w-full bg-accent text-white py-3 rounded-lg text-sm font-medium shadow transition flex items-center justify-center gap-2 cursor-pointer">
+                    ✨ Copiar Petición al Portapapeles
+                </button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-custom-dark border-t border-custom p-4 text-center text-xs text-gray-500 mt-6">
+        Base de conocimientos unificada. Creado para el autoaprendizaje ágil.
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        // BASE DE DATOS LOCAL DE TÉRMINOS TÉCNICOS
+        const DB_TERMINOS = [
+            {
+                palabra: "SPA (Single Page Application)",
+                categoria: "arquitectura",
+                definicion: "Aplicación de una sola página. Todo el diseño y las acciones ocurren en un único archivo, cargando al instante sin tener que refrescar la pantalla.",
+                ejemplo: "Ideal para tus herramientas rápidas de cálculo, ya que no fragmentas el código en archivos separados.",
+                prompt: "Crea una estructura SPA unificada en un solo bloque con HTML, CSS y JS integrados."
+            },
+            {
+                palabra: "LocalStorage",
+                categoria: "datos",
+                definicion: "Un pequeño almacén de memoria dentro de tu propio navegador web. Permite guardar datos que no se borran al cerrar la pestaña o apagar el PC.",
+                ejemplo: "Se usa para recordar el número de bus asignado, el último turno seleccionado o tus configuraciones de color.",
+                prompt: "Implementa funciones para guardar de forma persistente los registros en el LocalStorage del navegador."
+            },
+            {
+                palabra: "Event Listener (Escuchador)",
+                categoria: "frontend",
+                definicion: "Un bloque de JavaScript que se queda 'atento' a que el usuario haga algo específico (un clic en un botón, escribir en un campo o mover un elemento).",
+                ejemplo: "El código se queda esperando a que pulses 'Guardar turno' para ejecutar la validación al instante.",
+                prompt: "Añade un event listener al botón para capturar el evento de envío del formulario."
+            },
+            {
+                palabra: "PWA (Progressive Web App)",
+                categoria: "arquitectura",
+                definicion: "Una página web diseñada de tal forma que el móvil la reconoce como una aplicación nativa. Te permite instalar un icono en el escritorio y abrirla a pantalla completa.",
+                ejemplo: "Tus aplicaciones de jornadas pasadas a APK mediante Android Studio/Capacitor nacen de una estructura PWA.",
+                prompt: "Configura la app como una PWA básica agregando los archivos de manifiesto necesarios."
+            },
+            {
+                palabra: "Firebase Firestore",
+                categoria: "datos",
+                definicion: "Base de datos en la nube propiedad de Google. Sincroniza datos en tiempo real entre múltiples dispositivos conectados a internet.",
+                ejemplo: "Si registras datos en una app de walkie-talkie o de rutas, tus compañeros ven las ubicaciones al segundo.",
+                prompt: "Conecta el envío del formulario con una colección en Firebase Firestore utilizando la CDN oficial."
+            },
+            {
+                palabra: "DOM (Document Object Model)",
+                categoria: "frontend",
+                definicion: "Es la estructura interna de etiquetas que el navegador crea al leer tu HTML. Modificar el DOM con JS significa cambiar los textos o colores de la pantalla en caliente.",
+                ejemplo: "Cuando un script añade una fila nueva a tu tabla de dietas sin recargar la página, está alterando el DOM.",
+                prompt: "Usa JavaScript para actualizar de forma dinámica el DOM de la tabla cuando se añadan datos."
+            },
+            {
+                palabra: "Validación de Datos",
+                categoria: "frontend",
+                definicion: "Lógica de control que comprueba si la información introducida por el usuario cumple unas reglas estrictas antes de ser guardada.",
+                ejemplo: "Verificar en el acto que si se pone hora de fin no falte la de inicio, o exigir el número de bus obligatoriamente.",
+                prompt: "Crea una función de validación que bloquee el guardado si los campos obligatorios están vacíos."
+            },
+            {
+                palabra: "GitHub (El Álbum de Código)",
+                categoria: "arquitectura",
+                definicion: "Es como un álbum mágico o una caja fuerte en internet donde guardas las distintas versiones de tu app. Si te equivocas y rompes algo, puedes viajar en el tiempo y volver a la versión de ayer.",
+                ejemplo: "Imagínate que borras sin querer el botón de 'Dietas' de tu app. Si tienes guardado tu código en GitHub, puedes recuperarlo en un segundo sin llorar por haberlo perdido.",
+                prompt: "Dame las instrucciones paso a paso para inicializar un repositorio git y subir este código a GitHub de forma segura."
+            },
+            {
+                palabra: "Android Studio (Fábrica de Apps)",
+                categoria: "arquitectura",
+                definicion: "Es un programa gigante para ordenador. Funciona como una 'fábrica' donde metemos nuestro código web y lo empaquetamos para que salga convertido en una aplicación de verdad (APK) que puedes instalar en el móvil.",
+                ejemplo: "Cuando tu PWA de turnos está lista y perfecta, la metemos en la 'fábrica' de Android Studio para que tus compañeros se la puedan descargar como una app normal.",
+                prompt: "Explícame cómo envolver esta aplicación web en un proyecto de Android Studio usando Capacitor o WebView para crear un APK."
+            },
+            {
+                palabra: "Flutter (El Pintor Mágico)",
+                categoria: "frontend",
+                definicion: "Es una herramienta creada por Google. Su magia es que escribes el código de tu app una sola vez, y este 'pintor' sabe dibujarla tanto para móviles Android como para los iPhone de Apple. ¡Trabajas la mitad!",
+                ejemplo: "En lugar de hacer la app de los autobuses dos veces, con Flutter la construyes una vez y funciona genial en los móviles de todos tus compañeros.",
+                prompt: "Genera la estructura básica de esta interfaz utilizando Flutter con widgets modernos, manteniendo los mismos colores que el diseño original."
+            },
+            {
+                palabra: "JSON (La Mochila Ordenada)",
+                categoria: "datos",
+                definicion: "Es la forma favorita que tienen los ordenadores para pasarse información. Funciona como una mochila con etiquetas muy claras: 'Bus: 142', 'Hora: 06:00', para que cualquier programa sepa leerlo sin equivocarse.",
+                ejemplo: "Cuando guardas las dietas de un mes en LocalStorage o las mandas a Firebase, viajan empaquetadas en este formato de etiquetas.",
+                prompt: "Asegúrate de formatear los datos del formulario como un objeto JSON antes de enviarlos a la base de datos o guardarlos."
+            },
+            {
+                palabra: "API (El Camarero Mensajero)",
+                categoria: "datos",
+                definicion: "Es un mensajero. Imagina que vas a un restaurante: tú (la app) le pides la comida al camarero (la API), y él va a la cocina (el servidor) y te trae exactamente lo que pediste.",
+                ejemplo: "Si quieres que tu app muestre si va a llover durante tu turno, llamas a la API del clima, y ella te trae la información de la lluvia directo a tu pantalla.",
+                prompt: "Conecta la aplicación mediante una petición Fetch a una API externa (por ejemplo de clima o mapas) para integrar los datos en tiempo real."
+            }
+        ];
+
+        // CONTROL DE PESTAÑAS
+        function switchTab(tabId) {
+            const tabs = ['diccionario', 'anatomia', 'constructor'];
+            tabs.forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).className = "px-4 py-2 rounded-md text-sm font-medium transition text-gray-400 hover:text-white";
+            });
+            
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById(`btn-${tabId}`).className = "px-4 py-2 rounded-md text-sm font-medium transition bg-accent text-white";
+        }
+
+        // RENDERIZAR DICCIONARIO
+        let currentCategory = 'todos';
+        
+        function renderTerms(data) {
+            const container = document.getElementById('terms-container');
+            container.innerHTML = '';
+            
+            if(data.length === 0) {
+                container.innerHTML = `<p class="text-gray-500 text-sm col-span-2 py-4">No se encontraron términos coincidentes.</p>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-custom-card border border-custom rounded-xl p-5 space-y-3 shadow transition hover:border-zinc-500";
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <h4 class="text-md font-bold text-white">${item.palabra}</h4>
+                        <span class="text-[10px] uppercase tracking-wider font-extrabold px-2 py-0.5 rounded bg-black/40 text-accent border border-custom">${item.categoria}</span>
+                    </div>
+                    <p class="text-sm text-gray-300 leading-relaxed">${item.definicion}</p>
+                    <div class="text-xs text-gray-400 bg-black/20 p-2 rounded border border-custom/50">
+                        <strong>📌 Uso práctico:</strong> ${item.ejemplo}
+                    </div>
+                    <div class="pt-2 flex justify-between items-center border-t border-custom/40">
+                        <span class="text-xs text-gray-500 font-mono">Petición sugerida:</span>
+                        <button onclick="copyRawText('${item.prompt}')" class="text-xs text-sky-400 hover:underline cursor-pointer flex items-center gap-1">
+                            📋 Copiar orden
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // FILTROS DEL DICCIONARIO
+        function filterCategory(cat) {
+            currentCategory = cat;
+            const buttons = document.getElementById('filter-tags').getElementsByTagName('button');
+            for (let btn of buttons) {
+                btn.className = "px-3 py-1 rounded-full text-xs font-semibold bg-zinc-800 text-gray-400 border border-custom hover:text-white";
+            }
+            event.target.className = "px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-400 border border-sky-500/30";
+            filterTerms();
+        }
+
+        function filterTerms() {
+            const query = document.getElementById('search-bar').value.toLowerCase();
+            let filtered = DB_TERMINOS;
+
+            if (currentCategory !== 'todos') {
+                filtered = filtered.filter(item => item.categoria === currentCategory);
+            }
+
+            if (query) {
+                filtered = filtered.filter(item => item.palabra.toLowerCase().includes(query) || item.definicion.toLowerCase().includes(query));
+            }
+
+            renderTerms(filtered);
+        }
+
+        // EXPLICACIONES DE LA ANATOMÍA DEL CÓDIGO
+        const ANATOMY_DATA = {
+            cdn: {
+                titulo: "Tailwind CSS por CDN",
+                desc: "Es enlazar la librería de estilos directamente desde internet en la cabecera. Te permite dar forma, colores y márgenes profesionales a tus cajas al instante usando clases cortas sin escribir un archivo CSS separado, logrando ese diseño compacto de bloque único que optimiza tus desarrollos."
+            },
+            html: {
+                titulo: "Estructura Visual (HTML)",
+                desc: "Son las etiquetas que componen las cajas y botones reales que el usuario final ve en pantalla. En nuestro modelo unificado, representa los elementos contenedores fijos, las tablas de turnos y las entradas de texto del formulario que luego controlaremos con JavaScript."
+            },
+            variables: {
+                titulo: "Variables (Espacio de Memoria)",
+                desc: "Son los 'cajones' donde el código guarda de forma temporal los datos con los que está trabajando (como el identificador del autobús, el total acumulado de dietas o el estado de una cena). Cambian constantemente conforme el usuario interactúa con la aplicación."
+            },
+            listener: {
+                titulo: "Event Listener (Oyente de acciones)",
+                desc: "Es el enlace directo entre lo visual y la lógica. Le dice al navegador: 'Quédate vigilando este botón en específico, y en el milisegundo exacto en que hagan clic sobre él, dispara el bloque de código de validación de datos para salvar la información'."
+            },
+            funcion: {
+                titulo: "Función de JavaScript",
+                desc: "Un bloque de instrucciones reutilizable diseñado para realizar una tarea concreta. Por ejemplo, una función específica para calcular si corresponde dieta por hora de fin o una función limpia que empaqueta los datos recogidos del formulario y los escribe en la base de datos."
+            }
+        };
+
+        function showAnatomy(key) {
+            const data = ANATOMY_DATA[key];
+            const infoBox = document.getElementById('anatomy-info');
+            infoBox.innerHTML = `
+                <h3 class="text-lg font-bold text-sky-400 mb-2 flex items-center gap-2">
+                    🎯 ${data.titulo}
+                </h3>
+                <p class="text-gray-300 text-sm leading-relaxed">${data.desc}</p>
+                <button onclick="resetAnatomy()" class="mt-4 text-xs text-gray-500 hover:text-white underline cursor-pointer">Volver al inicio</button>
+            `;
+        }
+
+        function resetAnatomy() {
+            document.getElementById('anatomy-info').innerHTML = `
+                <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                    <span class="text-accent">💡</span> Anatomía del Código Unificado
+                </h3>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Haz clic en cualquiera de las secciones resaltadas en color dentro del código de la izquierda para ver su función real, para qué se utiliza en tus proyectos y cómo interactúa con el resto de la aplicación.
+                </p>
+            `;
+        }
+
+        // CONSTRUCTOR DE PROMPTS
+        function buildPrompt() {
+            const tipo = document.getElementById('p-tipo').value;
+            const datos = document.getElementById('p-datos').value;
+            const objetivo = document.getElementById('p-objetivo').value.trim() || "[Describe brevemente aquí el objetivo de la aplicación]";
+            
+            // Recoger checkboxes
+            const checkboxes = document.querySelectorAll('#tab-constructor input[type="checkbox"]:checked');
+            let componentes = [];
+            checkboxes.forEach(cb => componentes.push(cb.value));
+            
+            let componentesTexto = componentes.length > 0 
+                ? `La interfaz visual debe incluir obligatoriamente: ${componentes.join(', ')}.`
+                : 'La interfaz debe ser limpia y directa.';
+
+            const promptCompleto = `Por favor, actúa como un programador experto senior. Necesito que diseñes ${tipo}.\n\n` +
+                `**Objetivo de la App:** ${objetivo}.\n\n` +
+                `**Requisitos de la Arquitectura:**\n` +
+                `* El código debe venir unificado en un único archivo (HTML, CSS y JS integrados), evitando archivos separados.\n` +
+                `* Para el almacenamiento, implementa la lógica ${datos}.\n` +
+                `* ${componentesTexto}\n\n` +
+                `Por favor, asegúrate de que el diseño sea responsive, limpio, estructurado y optimizado con un tema oscuro elegante en escala de grises. Dame el código completo listo para usar.`;
+
+            document.getElementById('prompt-result').textContent = promptCompleto;
+        }
+
+        // UTILIDADES DE COPIADO
+        function copyPrompt() {
+            const text = document.getElementById('prompt-result').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('¡Petición perfecta copiada al portapapeles! Ya puedes pegarla en nuestro chat.');
+            });
+        }
+
+        function copyRawText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Copiado: "${text}"`);
+            });
+        }
+
+        // INICIALIZACIÓN AL CARGAR
+        window.onload = () => {
+            renderTerms(DB_TERMINOS);
+            buildPrompt();
+        };
+    </script>
+</body>
+</html>
